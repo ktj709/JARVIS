@@ -12,16 +12,16 @@ engine = pyttsx3.init()
 engine.setProperty('rate', 150)  
 engine.setProperty('volume', 1.0)  
 
-client = OpenAI(
-    api_key="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"  # Replace with your OpenAI API key
-)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# Initialize Spotify client
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id="72a92cefecaa4a11b52c5f26c611d70a",
-    client_secret="2140e50832454737a3c465dac513c78c",
-    redirect_uri="http://localhost:8888/callback",
+    client_id=os.getenv("SPOTIFY_CLIENT_ID"),
+    client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
+    redirect_uri=os.getenv("SPOTIFY_REDIRECT_URI"),
     scope="user-modify-playback-state user-read-playback-state user-read-currently-playing"
 ))
+# done 
 
 def speak(text):
     engine.say(text)
